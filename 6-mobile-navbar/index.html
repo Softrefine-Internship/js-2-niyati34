@@ -3,13 +3,474 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Omnifood</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      /* write CSS here */
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 62.5%;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: "Rubik", sans-serif;
+        line-height: 1;
+        font-weight: 400;
+        color: #555;
+        overflow-x: hidden;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fdf2e9;
+        height: 9.6rem;
+        padding: 0 4.8rem;
+        position: relative;
+      }
+
+      .logo {
+        height: 2.2rem;
+      }
+
+      .main-nav-list {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 4.8rem;
+      }
+
+      .main-nav-link:link,
+      .main-nav-link:visited {
+        display: inline-block;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        font-size: 1.8rem;
+        transition: all 0.3s;
+      }
+
+      .main-nav-link:hover,
+      .main-nav-link:active {
+        color: #cf711f;
+      }
+
+      .main-nav-link.nav-cta:link,
+      .main-nav-link.nav-cta:visited {
+        padding: 1.2rem 2.4rem;
+        border-radius: 9px;
+        color: #fff;
+        background-color: #e67e22;
+      }
+
+      .main-nav-link.nav-cta:hover,
+      .main-nav-link.nav-cta:active {
+        background-color: #cf711f;
+      }
+
+      .btn-mobile-nav {
+        border: none;
+        background: none;
+        cursor: pointer;
+        display: none;
+      }
+
+      .icon-mobile-nav {
+        height: 4.8rem;
+        width: 4.8rem;
+        color: #333;
+      }
+
+      .icon-mobile-nav[name="close-outline"] {
+        display: none;
+      }
+
+      .sticky .header {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 8rem;
+        padding-top: 0;
+        padding-bottom: 0;
+        background-color: rgba(255, 255, 255, 0.97);
+        z-index: 999;
+        box-shadow: 0 1.2rem 3.2rem rgba(0, 0, 0, 0.03);
+      }
+
+      .sticky .section-hero {
+        margin-top: 9.6rem;
+      }
+
+      @media (max-width: 84em) {
+        .hero {
+          max-width: 120rem;
+        }
+
+        .heading-primary {
+          font-size: 4.4rem;
+        }
+
+        .gallery {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 75em) {
+        html {
+          font-size: 56.25%;
+        }
+
+        .grid {
+          column-gap: 4.8rem;
+          row-gap: 6.4rem;
+        }
+
+        .heading-secondary {
+          font-size: 3.6rem;
+        }
+
+        .heading-tertiary {
+          font-size: 2.4rem;
+        }
+
+        .header {
+          padding: 0 3.2rem;
+        }
+
+        .main-nav-list {
+          gap: 3.2rem;
+        }
+
+        .hero {
+          gap: 4.8rem;
+        }
+
+        .testimonials-container {
+          padding: 9.6rem 3.2rem;
+        }
+      }
+
+      @media (max-width: 59em) {
+        html {
+          font-size: 50%;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 0 8rem;
+          gap: 6.4rem;
+        }
+
+        .hero-text-box,
+        .hero-img-box {
+          text-align: center;
+        }
+
+        .hero-img {
+          width: 60%;
+        }
+
+        .delivered-meals {
+          justify-content: center;
+          margin-top: 3.2rem;
+        }
+
+        .logos img {
+          height: 2.4rem;
+        }
+
+        .step-number {
+          font-size: 7.4rem;
+        }
+
+        .meal-content {
+          padding: 2.4rem 3.2rem 3.2rem 3.2rem;
+        }
+
+        .section-testimonials {
+          grid-template-columns: 1fr;
+        }
+
+        .gallery {
+          grid-template-columns: repeat(6, 1fr);
+        }
+
+        .cta {
+          grid-template-columns: 3fr 2fr;
+        }
+
+        .cta-form {
+          grid-template-columns: 1fr;
+        }
+
+        .btn--form {
+          margin-top: 1.2rem;
+        }
+
+        .btn-mobile-nav {
+          display: block;
+          z-index: 9999;
+        }
+
+        .main-nav {
+          background-color: rgba(255, 255, 255, 0.9);
+          -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(10px);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          transform: translateX(100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.5s ease-in;
+          opacity: 0;
+          pointer-events: none;
+          visibility: hidden;
+        }
+
+        .nav-open .main-nav {
+          opacity: 1;
+          pointer-events: auto;
+          visibility: visible;
+          transform: translateX(0);
+        }
+
+        .nav-open .icon-mobile-nav[name="close-outline"] {
+          display: block;
+        }
+
+        .nav-open .icon-mobile-nav[name="menu-outline"] {
+          display: none;
+        }
+
+        .main-nav-list {
+          flex-direction: column;
+          gap: 4.8rem;
+        }
+
+        .main-nav-link:link,
+        .main-nav-link:visited {
+          font-size: 3rem;
+        }
+      }
+
+      @media (max-width: 44em) {
+        .grid--3-cols,
+        .grid--4-cols {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .diets {
+          grid-column: 1 / -1;
+          justify-self: center;
+        }
+
+        .heading-secondary {
+          margin-bottom: 4.8rem;
+        }
+
+        .pricing-plan {
+          width: 100%;
+        }
+
+        .grid--footer {
+          grid-template-columns: repeat(6, 1fr);
+        }
+
+        .logo-col,
+        .address-col {
+          grid-column: span 3;
+        }
+
+        .nav-col {
+          grid-row: 1;
+          grid-column: span 2;
+          margin-bottom: 3.2rem;
+        }
+      }
+
+      @media (max-width: 34em) {
+        .grid {
+          row-gap: 4.8rem;
+        }
+
+        .grid--2-cols,
+        .grid--3-cols,
+        .grid--4-cols {
+          grid-template-columns: 1fr;
+        }
+
+        .btn,
+        .btn:link,
+        .btn:visited {
+          padding: 2.4rem 1.6rem;
+        }
+
+        .section-hero {
+          padding: 2.4rem 0 6.4rem 0;
+        }
+
+        .hero {
+          padding: 0 3.2rem;
+        }
+
+        .hero-img {
+          width: 80%;
+        }
+
+        .logos img {
+          height: 1.2rem;
+        }
+
+        .step-img-box:nth-child(2) {
+          grid-row: 1;
+        }
+
+        .step-img-box:nth-child(6) {
+          grid-row: 5;
+        }
+
+        .step-img-box {
+          transform: translateY(2.4rem);
+        }
+
+        .testimonials {
+          grid-template-columns: 1fr;
+        }
+
+        .gallery {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.2rem;
+        }
+
+        .cta {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-text-box {
+          padding: 3.2rem;
+        }
+
+        .cta-img-box {
+          height: 32rem;
+          grid-row: 1;
+        }
+      }
     </style>
   </head>
-  <body></body>
-  <script>
-    // write javascript here
-  </script>
+  <body>
+    <header class="header">
+      <a href="#">
+        <img class="logo" alt="Omnifood logo" src="omnifood-logo.png" />
+      </a>
+
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li><a class="main-nav-link" href="#how">How it works</a></li>
+          <li><a class="main-nav-link" href="#meals">Meals</a></li>
+          <li>
+            <a class="main-nav-link" href="#testimonials">Testimonials</a>
+          </li>
+          <li><a class="main-nav-link" href="#pricing">Pricing</a></li>
+          <li><a class="main-nav-link nav-cta" href="#cta">Try for free</a></li>
+        </ul>
+      </nav>
+
+      <button class="btn-mobile-nav">
+        <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
+        <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
+      </button>
+    </header>
+
+    <main>
+      <section
+        style="
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #f7f7f7;
+        "
+      >
+        <h1 style="font-size: 3rem; color: #333">Mobile Navbar Demo</h1>
+      </section>
+    </main>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script>
+      const btnNavEl = document.querySelector(".btn-mobile-nav");
+      const headerEl = document.querySelector(".header");
+
+      btnNavEl.addEventListener("click", function () {
+        headerEl.classList.toggle("nav-open");
+      });
+
+      const navLinks = document.querySelectorAll(".main-nav-link");
+
+      navLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+          headerEl.classList.remove("nav-open");
+        });
+      });
+
+      const allLinks = document.querySelectorAll("a:link");
+
+      allLinks.forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          const href = link.getAttribute("href");
+
+          if (href === "#")
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+
+          if (href !== "#" && href.startsWith("#")) {
+            const sectionEl = document.querySelector(href);
+            if (sectionEl) {
+              sectionEl.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        });
+      });
+
+      const checkFlexGap = function () {
+        var flex = document.createElement("div");
+        flex.style.display = "flex";
+        flex.style.flexDirection = "column";
+        flex.style.rowGap = "1px";
+
+        flex.appendChild(document.createElement("div"));
+        flex.appendChild(document.createElement("div"));
+
+        document.body.appendChild(flex);
+        var isSupported = flex.scrollHeight === 1;
+        flex.parentNode.removeChild(flex);
+
+        if (!isSupported) document.body.classList.add("no-flexbox-gap");
+      };
+      checkFlexGap();
+    </script>
+  </body>
 </html>

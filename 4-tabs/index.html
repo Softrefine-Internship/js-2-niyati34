@@ -5,11 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      /* write CSS here */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background-color: white;
+        padding: 0;
+      }
+
+      .tabs-container {
+        width: 100%;
+        margin: 0;
+        background: white;
+        overflow: hidden;
+      }
+
+      .tab-nav {
+        display: flex;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .tab-button {
+        flex: 1;
+        padding: 16px 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: #6c757d;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s ease;
+      }
+
+      .tab-button:hover {
+        color: #495057;
+      }
+
+      .tab-button.active {
+        color: #007bff;
+        border-bottom-color: #007bff;
+        background-color: #fff;
+      }
+
+      .tab-content {
+        padding: 20px;
+        min-height: 200px;
+      }
+
+      .tab-pane {
+        display: none;
+        color: #6c757d;
+        line-height: 1.6;
+        font-size: 14px;
+        padding: 32px;
+
+        background-color: #f8f9fa;
+      }
+
+      .tab-pane.active {
+        display: block;
+      }
+
+      .tab-pane strong {
+        color: #495057;
+      }
     </style>
   </head>
-  <body></body>
-  <script>
-    // write javascript here
-  </script>
+  <body>
+    <div class="tabs-container">
+      <div class="tab-nav">
+        <button class="tab-button active" data-tab="profile">Profile</button>
+        <button class="tab-button" data-tab="dashboard">Dashboard</button>
+        <button class="tab-button" data-tab="settings">Settings</button>
+        <button class="tab-button" data-tab="contacts">Contacts</button>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="profile">
+          This is some placeholder content the
+          <strong>Profile tab's associated content</strong>. Clicking another
+          tab will toggle the visibility of this one for the next. The tab
+          JavaScript swaps classes to control the content visibility and
+          styling.
+        </div>
+        <div class="tab-pane" id="dashboard">
+          This is some placeholder content the
+          <strong>Dashboard tab's associated content</strong>. Clicking another
+          tab will toggle the visibility of this one for the next. The tab
+          JavaScript swaps classes to control the content visibility and
+          styling.
+        </div>
+        <div class="tab-pane" id="settings">
+          This is some placeholder content the
+          <strong>Settings tab's associated content</strong>. Clicking another
+          tab will toggle the visibility of this one for the next. The tab
+          JavaScript swaps classes to control the content visibility and
+          styling.
+        </div>
+        <div class="tab-pane" id="contacts">
+          This is some placeholder content the
+          <strong>Contacts tab's associated content</strong>. Clicking another
+          tab will toggle the visibility of this one for the next. The tab
+          JavaScript swaps classes to control the content visibility and
+          styling.
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const tabPanes = document.querySelectorAll(".tab-pane");
+
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const targetTab = this.getAttribute("data-tab");
+
+            tabButtons.forEach((btn) => btn.classList.remove("active"));
+            tabPanes.forEach((pane) => pane.classList.remove("active"));
+
+            this.classList.add("active");
+            document.getElementById(targetTab).classList.add("active");
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
