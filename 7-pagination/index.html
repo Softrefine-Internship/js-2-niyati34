@@ -4,194 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pagination Component</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          sans-serif;
-        background-color: #f8f9fa;
-        padding: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-      }
-
-      .pagination {
-        display: inline-flex;
-        border-radius: 6px;
-        overflow: hidden;
-      }
-
-      .pagination-btn {
-        padding: 10px 16px;
-        border: 1px solid #cfd3d7;
-        background: white;
-        color: #686868;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 400;
-        transition: all 0.2s ease;
-        margin-left: -1px;
-        min-width: auto;
-        height: auto;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        line-height: 1.5;
-        position: relative;
-      }
-
-      .pagination-btn:first-child {
-        margin-left: 0;
-        border-top-left-radius: 6px;
-        border-bottom-left-radius: 6px;
-      }
-
-      .pagination-btn:last-child {
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
-      }
-
-      .pagination-btn:hover {
-        background-color: #e9ecef;
-        color: #0056b3;
-        z-index: 2;
-      }
-
-      .pagination-btn:disabled {
-        color: #6c757d;
-        cursor: not-allowed;
-        background-color: white;
-      }
-
-      .pagination-btn:disabled:hover {
-        background-color: white;
-        color: #6c757d;
-      }
-
-      .pagination-btn.active {
-        color: #007bff;
-        background-color: #eef7ff;
-      }
-
-      .pagination-btn.active:hover {
-        background-color: #0056b3;
-        color: white;
-        border-color: #0056b3;
-      }
-
-      .page-number {
-        min-width: 40px;
-      }
-
-      .prev-btn,
-      .next-btn {
-        min-width: auto;
-        padding: 10px 16px;
-      }
-    </style>
+    <link rel="stylesheet" href="7.css" />
   </head>
   <body>
-    <div class="pagination" id="pagination">
-      <button class="pagination-btn prev-btn" id="prevBtn">Previous</button>
-      <button class="pagination-btn page-number" data-page="1">1</button>
-      <button class="pagination-btn page-number" data-page="2">2</button>
-      <button class="pagination-btn page-number active" data-page="3">3</button>
-      <button class="pagination-btn page-number" data-page="4">4</button>
-      <button class="pagination-btn page-number" data-page="5">5</button>
-      <button class="pagination-btn next-btn" id="nextBtn">Next</button>
+    <div class="content-section">
+      <div class="item">Item 11</div>
+      <div class="item">Item 12</div>
     </div>
 
-    <script>
-      class Pagination {
-        constructor() {
-          this.currentPage = 3;
-          this.totalPages = 5;
-          this.init();
-        }
+    <div class="pagination-container">
+      <button class="pagination-btn prev-btn" id="prevBtn">← Previous</button>
 
-        init() {
-          this.bindEvents();
-          this.updatePagination();
-        }
+      <div class="pagination" id="pagination">
+        <button class="pagination-btn page-number" data-page="1">1</button>
+        <span class="ellipsis">...</span>
+        <button class="pagination-btn page-number" data-page="5">5</button>
+        <button class="pagination-btn page-number active" data-page="6">
+          6
+        </button>
+        <button class="pagination-btn page-number" data-page="7">7</button>
+        <span class="ellipsis">...</span>
+        <button class="pagination-btn page-number" data-page="10">10</button>
+      </div>
 
-        bindEvents() {
-          document.getElementById("prevBtn").addEventListener("click", () => {
-            this.goToPreviousPage();
-          });
+      <button class="pagination-btn next-btn" id="nextBtn">Next →</button>
+    </div>
 
-          document.getElementById("nextBtn").addEventListener("click", () => {
-            this.goToNextPage();
-          });
-
-          document.querySelectorAll(".page-number").forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-              const page = parseInt(e.target.dataset.page);
-              this.goToPage(page);
-            });
-          });
-        }
-
-        goToPage(page) {
-          if (page >= 1 && page <= this.totalPages) {
-            this.currentPage = page;
-            this.updatePagination();
-            console.log(`Navigated to page ${page}`);
-          }
-        }
-
-        goToPreviousPage() {
-          if (this.currentPage > 1) {
-            this.currentPage--;
-            this.updatePagination();
-            console.log(`Navigated to page ${this.currentPage}`);
-          }
-        }
-
-        goToNextPage() {
-          if (this.currentPage < this.totalPages) {
-            this.currentPage++;
-            this.updatePagination();
-            console.log(`Navigated to page ${this.currentPage}`);
-          }
-        }
-
-        updatePagination() {
-          document.querySelectorAll(".page-number").forEach((btn) => {
-            const page = parseInt(btn.dataset.page);
-            if (page === this.currentPage) {
-              btn.classList.add("active");
-            } else {
-              btn.classList.remove("active");
-            }
-          });
-
-          const prevBtn = document.getElementById("prevBtn");
-          if (this.currentPage <= 1) {
-            prevBtn.disabled = true;
-          } else {
-            prevBtn.disabled = false;
-          }
-
-          const nextBtn = document.getElementById("nextBtn");
-          if (this.currentPage >= this.totalPages) {
-            nextBtn.disabled = true;
-          } else {
-            nextBtn.disabled = false;
-          }
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        new Pagination();
-      });
-    </script>
+    <script src="7.js"></script>
   </body>
 </html>
